@@ -3,6 +3,7 @@ package com.example.cursomc.services;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.cursomc.dto.CategoriaDTO;
 import com.example.cursomc.services.exceptions.DataIntegrityException;
 import com.example.cursomc.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,5 +55,9 @@ public class CategoriaService {
     public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
         return repo.findAll(pageRequest);
+    }
+
+    public Categoria fromDTO(CategoriaDTO categoriaDTO){
+        return new Categoria(categoriaDTO.getId(), categoriaDTO.getNome());
     }
 }

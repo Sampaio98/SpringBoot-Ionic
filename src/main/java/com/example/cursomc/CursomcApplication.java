@@ -41,13 +41,13 @@ public class CursomcApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        Categoria cat1 = new Categoria("Informática");
-        Categoria cat2 = new Categoria("Escritório");
-        Categoria cat3 = new Categoria("Cama mesa e banho");
-        Categoria cat4 = new Categoria("Eletrônicos");
-        Categoria cat5 = new Categoria("Jardinagem");
-        Categoria cat6 = new Categoria("Decoração");
-        Categoria cat7 = new Categoria("Perfumaria");
+        Categoria cat1 = new Categoria(null, "Informática");
+        Categoria cat2 = new Categoria(null, "Escritório");
+        Categoria cat3 = new Categoria(null, "Cama mesa e banho");
+        Categoria cat4 = new Categoria(null, "Eletrônicos");
+        Categoria cat5 = new Categoria(null, "Jardinagem");
+        Categoria cat6 = new Categoria(null, "Decoração");
+        Categoria cat7 = new Categoria(null, "Perfumaria");
 
         Produto p1 = new Produto(null, "Computador", 2000.00);
         Produto p2 = new Produto(null, "Impressora", 800.00);
@@ -64,9 +64,6 @@ public class CursomcApplication implements CommandLineRunner {
         produtoRepository.saveAll(Arrays.asList(p1, p2, p3));
 
 
-
-
-
         Estado est1 = new Estado(null, "Minas Gerais");
         Estado est2 = new Estado(null, "São Paulo");
 
@@ -81,10 +78,6 @@ public class CursomcApplication implements CommandLineRunner {
         cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
 
 
-
-
-
-
         Cliente cli1 = new Cliente("Maria Silva", "maria@gmail.com", "36378912377", TipoCliente.PESSOAFISICA);
         cli1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));
 
@@ -94,12 +87,6 @@ public class CursomcApplication implements CommandLineRunner {
 
         clienteRepository.save(cli1);
         enderecoRepository.saveAll(Arrays.asList(e1, e2));
-
-
-
-
-
-
 
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
@@ -117,10 +104,6 @@ public class CursomcApplication implements CommandLineRunner {
 
         pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
         pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
-
-
-
-
 
 
         ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 2000.00);
