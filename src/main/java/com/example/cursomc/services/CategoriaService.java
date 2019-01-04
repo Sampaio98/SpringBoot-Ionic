@@ -3,6 +3,7 @@ package com.example.cursomc.services;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.cursomc.domain.Cliente;
 import com.example.cursomc.dto.CategoriaDTO;
 import com.example.cursomc.services.exceptions.DataIntegrityException;
 import com.example.cursomc.services.exceptions.ObjectNotFoundException;
@@ -34,8 +35,13 @@ public class CategoriaService {
     }
 
     public Categoria update(Categoria categoria) {
-        find(categoria.getId());
-        return repo.save(categoria);
+        Categoria novaCategoria = find(categoria.getId());
+        updateData(novaCategoria, categoria);
+        return repo.save(novaCategoria);
+    }
+
+    private void updateData(Categoria novaCategoria, Categoria categoria) {
+        novaCategoria.setNome(categoria.getNome());
     }
 
     public void delete(Integer id){
