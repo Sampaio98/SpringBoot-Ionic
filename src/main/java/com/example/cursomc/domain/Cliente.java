@@ -22,7 +22,7 @@ public class Cliente implements Serializable {
     private Integer tipo;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "cliente")
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Endereco> enderecos = new ArrayList<>();
 
 
