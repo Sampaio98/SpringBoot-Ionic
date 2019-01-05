@@ -2,6 +2,7 @@ package com.example.cursomc.resources;
 
 import com.example.cursomc.domain.Cliente;
 import com.example.cursomc.dto.ClienteDTO;
+import com.example.cursomc.dto.ClienteNewDTO;
 import com.example.cursomc.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -47,14 +48,14 @@ public class ClienteResource {
         return ResponseEntity.ok().body(cliente);
     }
 
-//    @RequestMapping(method = RequestMethod.POST)
-//    public ResponseEntity<Void> insert(@Valid @RequestBody ClienteDTO clienteDTO) {
-//        Cliente cliente = service.fromDTO(clienteDTO);
-//        cliente = service.insert(cliente);
-//        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-//                .path("/{id}").buildAndExpand(cliente.getId()).toUri();
-//        return ResponseEntity.created(uri).build();
-//    }
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO clienteNewDTO) {
+        Cliente cliente = service.fromDTO(clienteNewDTO);
+        cliente = service.insert(cliente);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}").buildAndExpand(cliente.getId()).toUri();
+        return ResponseEntity.created(uri).build();
+    }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Void> update(@PathVariable Integer id, @Valid @RequestBody ClienteDTO clienteDTO) {

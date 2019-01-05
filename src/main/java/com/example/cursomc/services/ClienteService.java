@@ -1,9 +1,14 @@
 package com.example.cursomc.services;
 
+import com.example.cursomc.domain.Cidade;
 import com.example.cursomc.domain.Cliente;
 import com.example.cursomc.domain.Cliente;
+import com.example.cursomc.domain.Endereco;
+import com.example.cursomc.domain.enums.TipoCliente;
 import com.example.cursomc.dto.ClienteDTO;
+import com.example.cursomc.dto.ClienteNewDTO;
 import com.example.cursomc.repositories.ClienteRepository;
+import com.example.cursomc.repositories.EnderecoRepository;
 import com.example.cursomc.services.exceptions.DataIntegrityException;
 import com.example.cursomc.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +27,9 @@ public class ClienteService {
 
     @Autowired
     private ClienteRepository repo;
+
+    @Autowired
+    private EnderecoRepository enderecoRepository;
 
     public Cliente find(Integer id) {
         Optional<Cliente> cliente = repo.findById(id);
@@ -60,5 +69,31 @@ public class ClienteService {
 
     public Cliente fromDTO(ClienteDTO clienteDTO){
         return new Cliente(clienteDTO.getNome(), clienteDTO.getEmail(), null, null);
+    }
+
+    public Cliente fromDTO(ClienteNewDTO clienteNewDTO){
+        Cliente cli = new Cliente(clienteNewDTO.getNome(), clienteNewDTO.getEmail(), clienteNewDTO.getCpfOuCnpj(), TipoCliente.toEnum(clienteNewDTO.getTipo()));
+        Cidade cid = new Cidade(clienteNewDTO.getCidadeId(), null, null);
+        Endereco end = new Endereco(clienteNewDTO.getLogradouro(), clienteNewDTO.getNumero(), clienteNewDTO.getComplemento(), clienteNewDTO.getBairro(), clienteNewDTO.getCep(), cli, cid);
+        cli.getEnderecos().add(end);
+        cli.getTelefones().add(clienteNewDTO.getTelefone1());
+
+        if(clienteNewDTO.getTelefone2() != null){
+            cli.getTelefones().add(clienteNewDTO.getTelefone2());
+        }
+
+        if(clienteNewDTO.getTelefone3() != null){
+            cli.getTelefones().add(clienteNewDTO.getTelefone3());
+        }
+
+        return cli;
+    }
+
+    @Transactional
+    public Cliente insert(Cliente cliente) {
+        cliente.setId(null);
+        cliente = repo.save(cliente);
+        enderecoRepository.saveAll(cliente.getEnderecos());
+        return cliente;
     }
 }
