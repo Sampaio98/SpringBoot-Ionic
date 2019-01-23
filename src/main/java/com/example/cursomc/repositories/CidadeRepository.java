@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.criteria.CriteriaBuilder;
 
 @Repository
-public interface CidadeRepository extends JpaRepository<Cidade, CriteriaBuilder.In> {
+public interface CidadeRepository extends JpaRepository<Cidade, Long> {
 }

@@ -1,16 +1,12 @@
 package com.example.cursomc.resources;
 
+import com.example.cursomc.domain.Categoria;
 import com.example.cursomc.dto.CategoriaDTO;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.example.cursomc.services.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import com.example.cursomc.domain.Categoria;
-import com.example.cursomc.services.CategoriaService;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
@@ -73,5 +69,4 @@ public class CategoriaResource {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
-
 }
