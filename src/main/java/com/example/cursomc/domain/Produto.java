@@ -2,6 +2,7 @@ package com.example.cursomc.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -17,7 +18,8 @@ public class Produto implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(generator = "increment")
+	@GenericGenerator(name = "increment", strategy = "increment")
 	private Integer id;
 	private String nome;
 	private Double preco;
